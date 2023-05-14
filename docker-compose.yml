@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  anisette:
+    image: dadoum/anisette-server:latest
+    volumes:
+      - lib_cache:/opt/lib/
+    ports:
+      - '127.0.0.1:6969:6969'
+    restart: always
+    container_name: anisette
+    hostname: anisette
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    networks:
+      - joelle
+
+  altcon:
+    image: macley/altcon:latest
+    volumes:
+      - /var/run:/var/run
+    container_name: altcon
+    hostname: altcon
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    networks:
+      - joelle
+    environment:
+      ALTSERVER_ANISETTE_SERVER: "http://ani.sidestore.io:6969"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - anisette
+
+volumes:
+  lib_cache:
+
+networks:
+  joelle:
+    name: joelle
