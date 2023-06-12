@@ -30,7 +30,7 @@ services:
     networks:
       - joelle
     environment:
-      ALTSERVER_ANISETTE_SERVER: "http://ani.sidestore.io:6969"
+      ALTSERVER_ANISETTE_SERVER: "http://anisette:6969"
     stdin_open: true
     tty: true
     depends_on:
